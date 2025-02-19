@@ -1,40 +1,62 @@
-/* ตั้งค่าฟอร์มให้เป็นกล่องตรงกลาง */
-form {
+.login-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    max-width: 400px;  /* กำหนดขนาดฟอร์ม */
-    margin: 50px auto;  /* จัดให้อยู่ตรงกลาง */
-    padding: 20px;
+    height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  .login-box {
     background: white;
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
-}
-
-/* ปรับแต่งช่อง Input */
-input {
-    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 350px;
+  }
+  
+  .login-box h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .input-group label {
+    align-self: flex-start;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .input-group input {
+    width: 93%;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* ปรับแต่งปุ่ม */
-button {
-    width: 65%;
-    padding: 10px;
-    background: #007BFF;
-    color: white;
-    border: none;
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
+  }
+  
+  .login-button {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-button:hover {
-    background: #0056b3;
-}
+    transition: background 0.3s;
+    margin-top: 15px;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3;
+  }
+  

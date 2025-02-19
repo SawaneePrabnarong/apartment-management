@@ -1,12 +1,13 @@
 package com.apartment.management.service;
 
-import com.apartment.management.model.Billing;
 import java.util.List;
+
+import com.apartment.management.model.Billing;
 
 public interface BillingService {
 
     // สร้างใบแจ้งหนี้สำหรับทุกห้องในเดือนปัจจุบัน
-    List<Billing> generateBillingForCurrentMonth();
+    List<Billing> generateBillingForCurrentMonth(String month);
 
     // ดึงข้อมูลใบแจ้งหนี้ของห้องทั้งหมดในเดือนปัจจุบัน
     List<Billing> getBillingRecordsForCurrentMonth();

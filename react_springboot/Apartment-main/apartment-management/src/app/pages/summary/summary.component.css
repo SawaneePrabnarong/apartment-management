@@ -1,5 +1,5 @@
 .container {
-    max-width: 800px;
+    max-width: 80%;
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -20,4 +20,48 @@
     text-align: center;
     /* margin-bottom: 20px; */
   }
+
+  th {
+    white-space: nowrap; /* ✅ ป้องกันการขึ้นบรรทัดใหม่ */
+    text-align: center;  /* ✅ จัดกลางข้อความ */
+    padding: 10px;       /* ✅ เพิ่ม padding เพื่อให้ดูอ่านง่าย */
+    font-weight: bold;    /* ✅ ทำให้ตัวหนา */
+    background-color: #f5f5f5; /* ✅ เพิ่มสีพื้นหลังให้อ่านง่าย */
+  }
+  
+  table {
+    width: 100%; /* ✅ ขยายตารางเต็มหน้ากว้าง */
+    table-layout: auto; /* ✅ ทำให้ขนาดคอลัมน์ยืดตามเนื้อหา */
+    border-collapse: collapse; /* ✅ รวมเส้นขอบให้เป็นเส้นเดียว */
+  }
+  
+  th, td {
+    border: 1px solid #ddd; /* ✅ เพิ่มเส้นขอบให้ดูเป็นระเบียบ */
+    padding: 10px; /* ✅ เพิ่มช่องว่างรอบตัวหนังสือ */
+  }
+  
+  .mat-table {
+    width: 100%;
+    table-layout: auto; /* ✅ ป้องกันไม่ให้บีบหัวตาราง */
+  }
+  
+  .mat-header-cell {
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .mat-cell {
+    text-align: center;
+  }
+  
+  .mdc-data-table__cell {
+    box-sizing: border-box;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+  
+  
+  
   

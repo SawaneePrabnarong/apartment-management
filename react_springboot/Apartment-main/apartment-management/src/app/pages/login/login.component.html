@@ -1,26 +1,14 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
-      <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">เข้าสู่ระบบ</h2>
-  
-      <!-- ชื่อผู้ใช้ -->
-      <div class="mb-4">
-        <label class="block text-gray-700 font-medium">ชื่อผู้ใช้</label>
-        <input type="text" formControlName="username"
-          class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300">
-      </div>
-  
-      <!-- รหัสผ่าน -->
-      <div class="mb-4">
-        <label class="block text-gray-700 font-medium">รหัสผ่าน</label>
-        <input type="password" formControlName="password"
-          class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300">
-      </div>
-  
-      <!-- ปุ่มเข้าสู่ระบบ -->
-      <button type="submit"
-        class="bg-blue-500 text-white px-4 py-3 w-full rounded-lg font-semibold hover:bg-blue-600 transition">
-        เข้าสู่ระบบ
-      </button>
+<div class="login-container">
+  <div class="login-box">
+    <h2>เข้าสู่ระบบ</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="input-group">
+      <label for="username">ชื่อผู้ใช้</label>
+      <input id="username" type="text" formControlName="username" />
+
+      <label for="password">รหัสผ่าน</label>
+      <input id="password" type="password" formControlName="password" />
+
+      <button type="submit" class="login-button">เข้าสู่ระบบ</button>
     </form>
   </div>
-  
+</div>

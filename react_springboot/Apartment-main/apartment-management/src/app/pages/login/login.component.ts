@@ -36,37 +36,20 @@ export class LoginComponent {
     this.apiService.login(this.loginForm.value).subscribe({
       next: (response: any) => {
         console.log('✅ Login Success:', response);
+        
         localStorage.setItem('token', response.token);  // ✅ เก็บ Token ไว้ใน LocalStorage
+        localStorage.setItem('userInfo',JSON.stringify(this.loginForm.value));
+
         this.router.navigate(['/water-meter']);  // ✅ นำทางไปหน้า Dashboard
       },
       error: (error: HttpErrorResponse) => {
         console.error('❌ Login Failed:', error);
         this.errorMessage = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+        alert(this.errorMessage);
+        this.loginForm.reset();
+        
       }
     });
-    // if (this.loginForm.valid) {
-    //   const loginData = this.loginForm.value; 
-    //   this.apiService.login(loginData).subscribe(
-    //     (response) => {
-    //       console.log('login', response);
-    //       if(response !== ''){
-    //         this.router.navigate(['/water-meter']); 
-    //         localStorage.setItem('authToken', response.token);
-    //       }else{
-    //         alert('username password ไม่ถูกต้อง');
-    //       }
-          
-    //     },
-    //     (error) => {
-    //       console.error('❌ เกิดข้อผิดพลาด:', error);
-    //       alert('เกิดข้อผิดพลาด: ' + error.message);
-    //     }
-    //   );
-
-    //   console.log('✅ Form Submitted:', this.loginForm.value);
-     
-    // } else {
-    //   console.log('❌ Form is invalid');
-    // }
+    
   }
 }

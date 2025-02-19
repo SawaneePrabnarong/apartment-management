@@ -8,8 +8,80 @@
 
   <div class="summary">
     <table mat-table [dataSource]="summaryData" class="mat-elevation-z8">
-      
       <ng-container matColumnDef="room">
+        <th mat-header-cell *matHeaderCellDef> ห้อง </th>
+        <td mat-cell *matCellDef="let element"> {{ element.roomNumber || '-' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="roomPrice">
+        <th mat-header-cell *matHeaderCellDef> ค่าห้อง </th>
+        <td mat-cell *matCellDef="let element"> {{ element.roomPrice || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="electricStart">
+        <th mat-header-cell *matHeaderCellDef> ไฟก่อน </th>
+        <td mat-cell *matCellDef="let element"> {{ element.electricStart || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="electricEnd">
+        <th mat-header-cell *matHeaderCellDef> ไฟหลัง </th>
+        <td mat-cell *matCellDef="let element"> {{ element.electricEnd || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="electricUsage">
+        <th mat-header-cell *matHeaderCellDef> ไฟใช้ไป </th>
+        <td mat-cell *matCellDef="let element"> {{ element.electricUsage || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="electricCharge">
+        <th mat-header-cell *matHeaderCellDef> ค่าไฟ </th>
+        <td mat-cell *matCellDef="let element"> {{ element.electricCharge || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="waterStart">
+        <th mat-header-cell *matHeaderCellDef> น้ำก่อน </th>
+        <td mat-cell *matCellDef="let element"> {{ element.waterStart || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="waterEnd">
+        <th mat-header-cell *matHeaderCellDef> น้ำหลัง </th>
+        <td mat-cell *matCellDef="let element"> {{ element.waterEnd || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="waterUsage">
+        <th mat-header-cell *matHeaderCellDef> น้ำใช้ไป </th>
+        <td mat-cell *matCellDef="let element"> {{ element.waterUsage || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="waterCharge">
+        <th mat-header-cell *matHeaderCellDef> ค่าน้ำ </th>
+        <td mat-cell *matCellDef="let element"> {{ element.waterCharge || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="parkingFee">
+        <th mat-header-cell *matHeaderCellDef> ค่าจอดรถ </th>
+        <td mat-cell *matCellDef="let element"> {{ element.parkingFee || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cableFee">
+        <th mat-header-cell *matHeaderCellDef> ค่าเคเบิ้ล </th>
+        <td mat-cell *matCellDef="let element"> {{ element.cableFee || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="commonFee">
+        <th mat-header-cell *matHeaderCellDef> ค่าส่วนกลาง </th>
+        <td mat-cell *matCellDef="let element"> {{ element.commonFee || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> รวมทั้งหมด </th>
+        <td mat-cell *matCellDef="let element"> {{ element.total || 0 }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+      <!-- <ng-container matColumnDef="room">
         <th mat-header-cell *matHeaderCellDef> ห้อง </th>
         <td mat-cell *matCellDef="let element"> {{ element.roomNumber }} </td>
       </ng-container>
@@ -30,7 +102,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
     </table>
   </div>
 </div>

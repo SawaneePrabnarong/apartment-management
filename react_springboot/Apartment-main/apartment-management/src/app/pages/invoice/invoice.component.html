@@ -1,0 +1,55 @@
+
+
+   <div class="invoice-container" *ngFor="let invoice of invoices">
+    <table class="invoice-table">
+      
+      <thead>
+        <tr>
+          <th colspan="3" class="header">ใบแจ้งหนี้ ประจำเดือน {{ invoice.billingMonth }}</th>
+        </tr>
+        <tr>
+          <th colspan="2" class="sub-header">ห้องหมายเลข</th>
+          <th class="sub-header">{{ invoice.roomNumber }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+       
+        <tr>
+          <td>ค่าเช่าห้อง</td>
+          <td colspan="2">{{ invoice.roomPrice }}</td>
+        </tr>
+        <tr>
+          <td>ค่าเคเบิล</td>
+          <td colspan="2">{{ invoice.cableFee }}</td>
+        </tr>
+        <tr>
+          <td>ค่าที่จอดรถ</td>
+          <td colspan="2">{{ invoice.parkingFee }}</td>
+        </tr>
+        <tr>
+          <td>ค่าทำความสะอาดส่วนกลาง</td>
+          <td colspan="2">{{ invoice.commonFee }}</td>
+        </tr>
+
+     
+        <tr>
+          <td>ค่าน้ำประปา (25 บาท/ยูนิต)</td>
+          <td>{{ invoice.waterMeterStart }} → {{ invoice.waterMeterEnd }} ({{ invoice.waterUsage }} ยูนิต)</td>
+          <td>{{ invoice.waterCharge }}</td>
+        </tr>
+
+       
+        <tr>
+          <td>ค่าไฟฟ้า (7 บาท/ยูนิต)</td>
+          <td>{{ invoice.electricMeterStart }} → {{ invoice.electricMeterEnd }} ({{ invoice.electricUsage }} ยูนิต)</td>
+          <td>{{ invoice.electricCharge }}</td>
+        </tr>
+
+        <tr class="total">
+          <td colspan="2"><strong>รวมยอดชำระ</strong></td>
+          <td class="total-amount">{{ invoice.totalAmount }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

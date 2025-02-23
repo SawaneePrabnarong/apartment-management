@@ -6,6 +6,7 @@ import { BillingComponent } from './pages/billing/billing.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './guards/auth.guard'; // ✅ Import Guard
+import { InvoiceComponent } from './pages/invoice/invoice.component';
 
 export const routes: Routes = [
     {
@@ -17,6 +18,7 @@ export const routes: Routes = [
         { path: 'summary', component: SummaryComponent },
         { path: 'billing', component: BillingComponent },
         { path: 'login', component: LoginComponent },
+        { path: 'invoice', component: InvoiceComponent }, // เพิ่ม Route ใหม่
         { path: '', redirectTo: 'login', pathMatch: 'full' },
       ],
     },

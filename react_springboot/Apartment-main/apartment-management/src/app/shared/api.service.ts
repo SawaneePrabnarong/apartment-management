@@ -84,4 +84,13 @@ export class ApiService {
   getBilling(): Observable<any> {
     return this.http.get(`${this.baseUrl}/billing`);
   }
+
+  updateBillStatus(id: number, status: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/billing/${id}/status`, { status });
+  }
+
+
+  getInvoices(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/billing/invoices`);
+  }
 }

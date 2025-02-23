@@ -78,31 +78,24 @@
         <td mat-cell *matCellDef="let element"> {{ element.total || 0 }} </td>
       </ng-container>
 
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> สถานะ </th>
+        <td mat-cell *matCellDef="let bill">
+          <mat-form-field appearance="outline">
+            <mat-label>สถานะ</mat-label>
+            <mat-select [(value)]="bill.status" (selectionChange)="updateStatus(bill, $event.value)">
+              <mat-option value="PAID">จ่ายแล้ว</mat-option>
+              <mat-option value="UNPAID">ยังไม่จ่าย</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+      
+      
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       
-      <!-- <ng-container matColumnDef="room">
-        <th mat-header-cell *matHeaderCellDef> ห้อง </th>
-        <td mat-cell *matCellDef="let element"> {{ element.roomNumber }} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="water">
-        <th mat-header-cell *matHeaderCellDef> ค่าน้ำ </th>
-        <td mat-cell *matCellDef="let element"> {{ element.waterBill }} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="electric">
-        <th mat-header-cell *matHeaderCellDef> ค่าไฟ </th>
-        <td mat-cell *matCellDef="let element"> {{ element.electricBill }} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> รวม </th>
-        <td mat-cell *matCellDef="let element"> {{ element.totalBill }} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
     </table>
   </div>
 </div>

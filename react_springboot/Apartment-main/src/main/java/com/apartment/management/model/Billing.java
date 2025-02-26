@@ -28,7 +28,8 @@ public class Billing {
     @Column(name = "room_number")
     private String roomNumber;
 
-
+    @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'Unpaid'")
+    private String status;
     private BigDecimal roomPrice; 
     private BigDecimal waterBill; // ค่าใช้จ่ายน้ำ
     private BigDecimal electricBill; // ค่าใช้จ่ายไฟฟ้า
@@ -77,6 +78,14 @@ public class Billing {
 
     public void setMonth(String month) {
         this.month = month;
+    }
+
+    public String getStatus() {
+        return  status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public BigDecimal getRoomPrice() {

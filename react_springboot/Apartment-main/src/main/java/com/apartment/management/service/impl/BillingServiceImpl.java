@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.apartment.management.dto.BillingDTO;
 import com.apartment.management.model.Billing;
 import com.apartment.management.model.ElectricMeter;
 import com.apartment.management.model.Room;
@@ -54,10 +56,10 @@ public class BillingServiceImpl implements BillingService {
                 billing.setMonth(monthString);
             }
 
-             // ✅ ดึงค่าห้องจาก FloorPriceRepository ตามชั้นที่กำหนด
-    BigDecimal roomPrice = floorPriceRepository.findById(room.getFloor())
-    .map(floor -> BigDecimal.valueOf(floor.getPrice()))
-    .orElseThrow(() -> new RuntimeException("Floor price not found"));
+            // ✅ ดึงค่าห้องจาก FloorPriceRepository ตามชั้นที่กำหนด
+            BigDecimal roomPrice = floorPriceRepository.findById(room.getFloor())
+                    .map(floor -> BigDecimal.valueOf(floor.getPrice()))
+                    .orElseThrow(() -> new RuntimeException("Floor price not found"));
 
             // ✅ ดึงค่ามิเตอร์ก่อนหน้าโดยใช้ `previousMonth`
             double lastWaterMeter = room.getWaterMeters().stream()
@@ -71,6 +73,7 @@ public class BillingServiceImpl implements BillingService {
                     .map(WaterMeter::getMeterValue)
                     .reduce((first, second) -> second)
                     .orElse(0.0);
+            // .orElse(lastWaterMeter); // ✅ ใช้ค่าเดือนก่อนหน้าถ้าไม่มีค่าปัจจุบัน
 
             double lastElectricMeter = room.getElectricMeters().stream()
                     .filter(meter -> YearMonth.from(meter.getRecordDate()).equals(previousMonth))
@@ -83,6 +86,7 @@ public class BillingServiceImpl implements BillingService {
                     .map(ElectricMeter::getMeterValue)
                     .reduce((first, second) -> second)
                     .orElse(0.0);
+            // .orElse(lastElectricMeter); // ✅ ใช้ค่าเดือนก่อนหน้าถ้าไม่มีค่าปัจจุบัน
 
             // ✅ ใช้ฟังก์ชันป้องกันมิเตอร์รีเซ็ต
             double waterUsage = calculateMeterUsage(lastWaterMeter, currentWaterMeter);
@@ -93,19 +97,18 @@ public class BillingServiceImpl implements BillingService {
             BigDecimal defaultParkingFee = BigDecimal.valueOf(400);
             BigDecimal defaultCableFee = BigDecimal.valueOf(100);
             BigDecimal defaultCommonFee = BigDecimal.valueOf(200);
-             // ✅ รวมค่าใช้จ่ายทั้งหมด
-    BigDecimal totalBill = roomPrice.add(waterBill).add(electricBill)
-    .add(defaultParkingFee)
-    .add(defaultCableFee)
-    .add(defaultCommonFee);
+            // ✅ รวมค่าใช้จ่ายทั้งหมด
+            BigDecimal totalBill = roomPrice.add(waterBill).add(electricBill)
+                    .add(defaultParkingFee)
+                    .add(defaultCableFee)
+                    .add(defaultCommonFee);
             // BigDecimal totalBill = waterBill.add(electricBill)
-            //         .add(defaultParkingFee)
-            //         .add(defaultCableFee)
-            //         .add(defaultCommonFee);
+            // .add(defaultParkingFee)
+            // .add(defaultCableFee)
+            // .add(defaultCommonFee);
 
             System.out.println("💰 รวมค่าใช้จ่ายห้อง " + room.getRoomNumber() + " = " + totalBill);
 
-           
             billing.setRoomPrice(roomPrice);
             billing.setParkingFee(defaultParkingFee);
             billing.setCableFee(defaultCableFee);
@@ -157,4 +160,30 @@ public class BillingServiceImpl implements BillingService {
     private double calculateMeterUsage(double lastMeter, double currentMeter) {
         return (currentMeter < lastMeter) ? (9999 - lastMeter) + currentMeter + 1 : currentMeter - lastMeter;
     }
+
+    @Override
+    public Billing updateBillingStatus(Long billingId, String status) {
+        return billingRepository.findById(billingId).map(billing -> {
+            billing.setStatus(status);
+            return billingRepository.save(billing);
+        }).orElse(null); // ✅ ถ้าไม่เจอบิลให้ return null (ป้องกัน error)
+    }
+
+    @Override
+    public Billing createBilling(Billing billing) {
+        if (billing.getStatus() == null || billing.getStatus().isEmpty()) {
+            billing.setStatus("Unpaid"); // ตั้งค่าเริ่มต้น
+        }
+        return billingRepository.save(billing);
+    }
+
+    // private final BillingRepository billingRepository;
+
+    @Override
+    public List<BillingDTO> getAllInvoices() {
+        List<Billing> billings = billingRepository.findAllOrderByRoomNumber();
+         System.out.println(billings);
+        return billings.stream().map(BillingDTO::new).collect(Collectors.toList());
+    }
+
 }

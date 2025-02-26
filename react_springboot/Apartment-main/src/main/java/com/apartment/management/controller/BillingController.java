@@ -1,14 +1,18 @@
 package com.apartment.management.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,23 +71,65 @@ public class BillingController {
         return ResponseEntity.ok(billings);
     }
 
-   
-
-
     @GetMapping("/summary/{month}")
     public ResponseEntity<List<BillingDTO>> getBillingSummaryByMonth(@PathVariable String month) {
         List<Billing> billings = billingService.getBillingSummaryByMonth(month);
-    
+
         if (billings.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-    
+
         // ✅ แปลง `Billing` เป็น `BillingDTO` 
         List<BillingDTO> billingDTOs = billings.stream()
                 .map(BillingDTO::new)
                 .collect(Collectors.toList());
-    
+
         return ResponseEntity.ok(billingDTOs);
     }
+
+    @PatchMapping("/update-status/{billingId}")
+    public ResponseEntity<Billing> updateBillingStatus(
+            @PathVariable Long billingId,
+            @RequestParam String status) {
+
+        Billing updatedBilling = billingService.updateBillingStatus(billingId, status);
+        if (updatedBilling == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(updatedBilling);
+    }
+
+    @PostMapping
+    public ResponseEntity<Billing> createBilling(@RequestBody Billing billing) {
+        Billing savedBilling = billingService.createBilling(billing);
+        return new ResponseEntity<>(savedBilling, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<?> updatePaymentStatus(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        if (request == null || !request.containsKey("status")) {
+            return ResponseEntity.badRequest().body("Missing 'status' field in request");
+        }
     
+        String newStatus = request.get("status");
+    
+        if (!"PAID".equals(newStatus) && !"UNPAID".equals(newStatus)) {
+            return ResponseEntity.badRequest().body("Invalid status value");
+        }
+    
+        Billing updatedBilling = billingService.updateBillingStatus(id, newStatus);
+        if (updatedBilling == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    
+        return ResponseEntity.ok(updatedBilling);
+    }
+
+    @GetMapping("/invoices")
+    public ResponseEntity<List<BillingDTO>> getAllInvoices() {
+        List<BillingDTO> invoices = billingService.getAllInvoices();
+        return ResponseEntity.ok(invoices);
+    }
+    
+
 }

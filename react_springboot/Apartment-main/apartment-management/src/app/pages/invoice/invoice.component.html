@@ -1,55 +1,74 @@
-
-
-   <div class="invoice-container" *ngFor="let invoice of invoices">
+<div class="container">
+  <div class="invoice-container" *ngFor="let invoice of invoices">
     <table class="invoice-table">
       
       <thead>
         <tr>
-          <th colspan="3" class="header">ใบแจ้งหนี้ ประจำเดือน {{ invoice.billingMonth }}</th>
+          <th colspan="5" class="header">ใบแจ้งหนี้ ประจำเดือน {{ invoice.billingMonth }}</th>
         </tr>
         <tr>
-          <th colspan="2" class="sub-header">ห้องหมายเลข</th>
+          <th colspan="4" class="sub-header">ห้องหมายเลข</th>
           <th class="sub-header">{{ invoice.roomNumber }}</th>
         </tr>
       </thead>
 
       <tbody>
-       
         <tr>
           <td>ค่าเช่าห้อง</td>
-          <td colspan="2">{{ invoice.roomPrice }}</td>
+          <td colspan="4">{{ invoice.roomPrice | currency:'THB ' }}</td>
         </tr>
         <tr>
           <td>ค่าเคเบิล</td>
-          <td colspan="2">{{ invoice.cableFee }}</td>
+          <td colspan="4">{{ invoice.cableFee | currency:'THB ' }}</td>
         </tr>
         <tr>
           <td>ค่าที่จอดรถ</td>
-          <td colspan="2">{{ invoice.parkingFee }}</td>
+          <td colspan="4">{{ invoice.parkingFee | currency:'THB ' }}</td>
         </tr>
         <tr>
           <td>ค่าทำความสะอาดส่วนกลาง</td>
-          <td colspan="2">{{ invoice.commonFee }}</td>
+          <td colspan="4">{{ invoice.commonFee | currency:'THB ' }}</td>
         </tr>
 
-     
+        <!-- 🔹 ค่าน้ำประปา (3 ช่อง) -->
         <tr>
-          <td>ค่าน้ำประปา (25 บาท/ยูนิต)</td>
-          <td>{{ invoice.waterMeterStart }} → {{ invoice.waterMeterEnd }} ({{ invoice.waterUsage }} ยูนิต)</td>
-          <td>{{ invoice.waterCharge }}</td>
+          <td rowspan="2">ค่าน้ำประปา (25 บาท/ยูนิต)</td>
+          <td>มิเตอร์ก่อนหน้า</td>
+          <td>มิเตอร์ปัจจุบัน</td>
+          <td>จำนวนที่ใช้ (ยูนิต)</td>
+          <td>ราคา (ยูนิต)</td>
         </tr>
-
-       
         <tr>
-          <td>ค่าไฟฟ้า (7 บาท/ยูนิต)</td>
-          <td>{{ invoice.electricMeterStart }} → {{ invoice.electricMeterEnd }} ({{ invoice.electricUsage }} ยูนิต)</td>
-          <td>{{ invoice.electricCharge }}</td>
+          <td>{{ invoice.waterMeterStart }}</td>
+          <td>{{ invoice.waterMeterEnd }}</td>
+          <td>{{ invoice.waterUsage }}</td>
+          <td>{{ invoice.waterCharge | currency:'THB ' }}</td>
         </tr>
+      
 
+        <!-- 🔹 ค่าไฟฟ้า (3 ช่อง) -->
+        <tr>
+          <td rowspan="2">ค่าไฟฟ้า (7 บาท/ยูนิต)</td>
+          <td>มิเตอร์ก่อนหน้า</td>
+          <td>มิเตอร์ปัจจุบัน</td>
+          <td>จำนวนที่ใช้ (ยูนิต)</td>
+          <td>ราคา (ยูนิต)</td>
+        </tr>
+        <tr>
+          <td>{{ invoice.electricMeterStart }}</td>
+          <td>{{ invoice.electricMeterEnd }}</td>
+          <td>{{ invoice.electricUsage }}</td>
+          <td>{{ invoice.electricCharge | currency:'THB ' }}</td>
+        </tr>
+    
+
+        <!-- ✅ รวมยอดชำระ -->
         <tr class="total">
-          <td colspan="2"><strong>รวมยอดชำระ</strong></td>
-          <td class="total-amount">{{ invoice.totalAmount }}</td>
+          <td colspan="4"><strong>รวมยอดชำระ</strong></td>
+          <td class="total-amount">{{ invoice.totalAmount | currency:'THB ' }}</td>
         </tr>
       </tbody>
     </table>
+  </div>
 </div>
+

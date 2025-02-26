@@ -35,17 +35,12 @@ export interface Invoice {
       CommonModule   // ✅ Import MatSelect
     ],
   templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.scss'],
+  styleUrls: ['./invoice.component.css'],
 })
 export class InvoiceComponent implements OnInit {
   invoices: Invoice[] = [];
-  // displayedColumns: string[] = [
-  //   // 'billingMonth', 'roomNumber', 'roomPrice',
-  //   // 'totalAmount'
-  //   'roomNumber', 'roomPrice', 'cableFee', 'parkingFee', 'commonFee', 'waterMeterStart', 'waterMeterEnd', 'waterUsage', 'waterCharge',
-  //   'electricMeterStart', 'electricMeterEnd', 'electricUsage', 'electricCharge', 'totalAmount'
-  // ];
   
+ 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {

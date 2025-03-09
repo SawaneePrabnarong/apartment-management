@@ -13,7 +13,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
   login(data: any): Observable<any> {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       this.http.post(`${this.baseUrl}/auth/login`, data).subscribe(
         (response: any) => {
           localStorage.setItem('token', response.token);
@@ -71,10 +71,15 @@ export class ApiService {
     });
   }
 
+  // generateBills(month: string): Observable<any> {
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+  //   return this.http.post(`${this.baseUrl}/billing/generate/${month}`, {}, { headers });
+  // }
+  
+
   generateBills(month: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/billing/generate/${month}`, {});
-}
-
+  }
 
   getSummary(month: string): Observable<any> {
     //return this.http.get(`${this.baseUrl}/summary`);
@@ -88,7 +93,6 @@ export class ApiService {
   updateBillStatus(id: number, status: string): Observable<any> {
     return this.http.put(`${this.baseUrl}/billing/${id}/status`, { status });
   }
-
 
   getInvoices(): Observable<any> {
     return this.http.get(`${this.baseUrl}/billing/invoices`);

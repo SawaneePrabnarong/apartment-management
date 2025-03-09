@@ -77,20 +77,21 @@ export class LayoutComponent implements OnInit {
   handleSummaryClick(): void {
         console.log('🔄 กำลังสร้างบิล...');
         const currentMonth = new Date().toISOString().slice(0, 7);
+        this.router.navigate(['/summary']);
     
-        // ✅ ยิง API `generateBills()`
-        this.apiService.generateBills(currentMonth).subscribe(
-          response => {
-            console.log('✅ สร้างบิลสำเร็จ:', response);
+        // // ✅ ยิง API `generateBills()`
+        // this.apiService.generateBills(currentMonth).subscribe(
+        //   response => {
+        //     console.log('✅ สร้างบิลสำเร็จ:', response);
             
-            // ✅ หลังจากยิง API เสร็จแล้วให้เปลี่ยนหน้าไป "/summary"
-            this.router.navigate(['/summary']);
-          },
-          error => {
-            console.error('❌ เกิดข้อผิดพลาดในการสร้างบิล:', error);
-            alert('เกิดข้อผิดพลาดในการโหลดบิล!');
-          }
-        );
+        //     // ✅ หลังจากยิง API เสร็จแล้วให้เปลี่ยนหน้าไป "/summary"
+        //     this.router.navigate(['/summary']);
+        //   },
+        //   error => {
+        //     console.error('❌ เกิดข้อผิดพลาดในการสร้างบิล:', error);
+        //     alert('เกิดข้อผิดพลาดในการโหลดบิล!');
+        //   }
+        // );
       }
 }
 

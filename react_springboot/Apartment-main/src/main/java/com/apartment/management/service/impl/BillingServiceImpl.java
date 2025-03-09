@@ -54,6 +54,7 @@ public class BillingServiceImpl implements BillingService {
                 billing.setRoom(room);
                 billing.setRoomNumber(room.getRoomNumber());
                 billing.setMonth(monthString);
+                billing.setStatus("Unpaid"); // ✅ ตั้งค่า Default
             }
 
             // ✅ ดึงค่าห้องจาก FloorPriceRepository ตามชั้นที่กำหนด

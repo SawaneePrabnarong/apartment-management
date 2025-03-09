@@ -55,33 +55,47 @@ public class MeterServiceImpl implements MeterService {
         }
     }
 
-
     // @Override
-    // public void saveWaterMeter(Long roomId, Double meterValue, LocalDate recordDate) throws Exception {
+    // public void saveElectricMeter(Long roomId, Double meterValue, LocalDate recordDate) throws Exception {
     //     Room room = roomRepository.findById(roomId)
     //             .orElseThrow(() -> new Exception("Room not found with id: " + roomId));
 
-    //     WaterMeter waterMeter = new WaterMeter();
-    //     waterMeter.setRoom(room);
-    //     waterMeter.setMeterValue(meterValue);
-    //     waterMeter.setRecordDate(recordDate);
+    //     ElectricMeter electricMeter = new ElectricMeter();
+    //     electricMeter.setRoom(room);
+    //     electricMeter.setMeterValue(meterValue);
+    //     electricMeter.setRecordDate(recordDate);
 
-    //     waterMeterRepository.save(waterMeter);
+    //     electricMeterRepository.save(electricMeter);
     // }
+
 
     @Override
     public void saveElectricMeter(Long roomId, Double meterValue, LocalDate recordDate) throws Exception {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new Exception("Room not found with id: " + roomId));
-
-        ElectricMeter electricMeter = new ElectricMeter();
-        electricMeter.setRoom(room);
-        electricMeter.setMeterValue(meterValue);
-        electricMeter.setRecordDate(recordDate);
-
-        electricMeterRepository.save(electricMeter);
+    
+        // ✅ ดึง `year` และ `month` จากวันที่ที่ส่งมา
+        int year = recordDate.getYear();
+        int month = recordDate.getMonthValue();
+    
+        // ✅ ตรวจสอบว่ามีค่ามิเตอร์ของเดือนนั้นอยู่หรือไม่
+        Optional<ElectricMeter> existingMeter = electricMeterRepository.findByRoomAndRecordMonth(room, year, month);
+    
+        if (existingMeter.isPresent()) {
+            // ✅ อัปเดตค่ามิเตอร์ที่มีอยู่
+            ElectricMeter meter = existingMeter.get();
+            meter.setMeterValue(meterValue);
+            meter.setRecordDate(recordDate); // อัปเดตวันที่ให้แน่ใจว่าตรงกัน
+            electricMeterRepository.save(meter);
+            System.out.println("✅ อัปเดตค่ามิเตอร์ไฟเรียบร้อย: " + meterValue);
+        } else {
+            // ✅ ถ้ายังไม่มีข้อมูล → บันทึกใหม่
+            ElectricMeter newMeter = new ElectricMeter(room, meterValue, recordDate);
+            electricMeterRepository.save(newMeter);
+            System.out.println("✅ บันทึกมิเตอร์ไฟใหม่เรียบร้อย: " + meterValue);
+        }
     }
-
+    
     @Override
     public List<WaterMeter> getWaterMeterRecordsByRoomAndMonth(Long roomId, YearMonth month) {
         LocalDate start = month.atDay(1);

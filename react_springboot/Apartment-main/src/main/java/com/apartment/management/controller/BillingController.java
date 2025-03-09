@@ -35,7 +35,9 @@ public class BillingController {
     // สร้างใบแจ้งหนี้สำหรับทุกห้องในเดือนปัจจุบัน
     @PostMapping("/generate/{month}")
     public ResponseEntity<List<Billing>> generateBillsForCurrentMonth(@PathVariable String month) {
+        System.out.println("APIIIIIIIIIIIIIIIIIIIIIIII: /api/billing/generate/" + month);
         List<Billing> billings = billingService.generateBillingForCurrentMonth(month);
+        System.out.println("billinggggggggggggggg" + billings);
         if (billings.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

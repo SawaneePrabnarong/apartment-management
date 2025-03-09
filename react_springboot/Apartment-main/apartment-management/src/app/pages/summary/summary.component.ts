@@ -4,9 +4,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
-
-
-
 @Component({
   selector: 'app-summary',
   standalone: true,

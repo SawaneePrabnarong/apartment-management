@@ -29,11 +29,15 @@ public class Billing {
     private String roomNumber;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'Unpaid'")
-    private String status;
-    private BigDecimal roomPrice; 
+    private String status = "Unpaid"; // ✅ กำหนดค่า Default ใน Java
+
+    // @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'Unpaid'")
+    // private String status;
+    private BigDecimal roomPrice;
     private BigDecimal waterBill; // ค่าใช้จ่ายน้ำ
     private BigDecimal electricBill; // ค่าใช้จ่ายไฟฟ้า
-    private BigDecimal totalBill; // รวมค่าใช้จ่ายทั้งหมด   // ✅ เพิ่มฟิลด์ใหม่เพื่อรองรับค่ามิเตอร์และค่าใช้จ่ายเพิ่มเติม
+    private BigDecimal totalBill; // รวมค่าใช้จ่ายทั้งหมด // ✅
+                                  // เพิ่มฟิลด์ใหม่เพื่อรองรับค่ามิเตอร์และค่าใช้จ่ายเพิ่มเติม
     private double waterMeterStart;
     private double waterMeterEnd;
     private double electricMeterStart;
@@ -43,8 +47,6 @@ public class Billing {
     private BigDecimal parkingFee;
     private BigDecimal cableFee;
     private BigDecimal commonFee;
-
-    
 
     // Getters and Setters
 
@@ -81,7 +83,7 @@ public class Billing {
     }
 
     public String getStatus() {
-        return  status;
+        return status;
     }
 
     public void setStatus(String status) {
@@ -95,6 +97,7 @@ public class Billing {
     public void setRoomPrice(BigDecimal roomPrice) {
         this.roomPrice = roomPrice;
     }
+
     public BigDecimal getWaterBill() {
         return waterBill;
     }
@@ -118,30 +121,76 @@ public class Billing {
     public void setTotalBill(BigDecimal totalBill) {
         this.totalBill = totalBill;
     }
-    public double getWaterMeterStart() { return waterMeterStart; }
-    public void setWaterMeterStart(double waterMeterStart) { this.waterMeterStart = waterMeterStart; }
 
-    public double getWaterMeterEnd() { return waterMeterEnd; }
-    public void setWaterMeterEnd(double waterMeterEnd) { this.waterMeterEnd = waterMeterEnd; }
+    public double getWaterMeterStart() {
+        return waterMeterStart;
+    }
 
-    public double getElectricMeterStart() { return electricMeterStart; }
-    public void setElectricMeterStart(double electricMeterStart) { this.electricMeterStart = electricMeterStart; }
+    public void setWaterMeterStart(double waterMeterStart) {
+        this.waterMeterStart = waterMeterStart;
+    }
 
-    public double getElectricMeterEnd() { return electricMeterEnd; }
-    public void setElectricMeterEnd(double electricMeterEnd) { this.electricMeterEnd = electricMeterEnd; }
+    public double getWaterMeterEnd() {
+        return waterMeterEnd;
+    }
 
-    public double getWaterUsage() { return waterUsage; }
-    public void setWaterUsage(double waterUsage) { this.waterUsage = waterUsage; }
+    public void setWaterMeterEnd(double waterMeterEnd) {
+        this.waterMeterEnd = waterMeterEnd;
+    }
 
-    public double getElectricUsage() { return electricUsage; }
-    public void setElectricUsage(double electricUsage) { this.electricUsage = electricUsage; }
+    public double getElectricMeterStart() {
+        return electricMeterStart;
+    }
 
-    public BigDecimal getParkingFee() { return parkingFee; }
-    public void setParkingFee(BigDecimal parkingFee) { this.parkingFee = parkingFee; }
+    public void setElectricMeterStart(double electricMeterStart) {
+        this.electricMeterStart = electricMeterStart;
+    }
 
-    public BigDecimal getCableFee() { return cableFee; }
-    public void setCableFee(BigDecimal cableFee) { this.cableFee = cableFee; }
+    public double getElectricMeterEnd() {
+        return electricMeterEnd;
+    }
 
-    public BigDecimal getCommonFee() { return commonFee; }
-    public void setCommonFee(BigDecimal commonFee) { this.commonFee = commonFee; }
+    public void setElectricMeterEnd(double electricMeterEnd) {
+        this.electricMeterEnd = electricMeterEnd;
+    }
+
+    public double getWaterUsage() {
+        return waterUsage;
+    }
+
+    public void setWaterUsage(double waterUsage) {
+        this.waterUsage = waterUsage;
+    }
+
+    public double getElectricUsage() {
+        return electricUsage;
+    }
+
+    public void setElectricUsage(double electricUsage) {
+        this.electricUsage = electricUsage;
+    }
+
+    public BigDecimal getParkingFee() {
+        return parkingFee;
+    }
+
+    public void setParkingFee(BigDecimal parkingFee) {
+        this.parkingFee = parkingFee;
+    }
+
+    public BigDecimal getCableFee() {
+        return cableFee;
+    }
+
+    public void setCableFee(BigDecimal cableFee) {
+        this.cableFee = cableFee;
+    }
+
+    public BigDecimal getCommonFee() {
+        return commonFee;
+    }
+
+    public void setCommonFee(BigDecimal commonFee) {
+        this.commonFee = commonFee;
+    }
 }

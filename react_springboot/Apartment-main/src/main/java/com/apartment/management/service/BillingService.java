@@ -24,4 +24,8 @@ public interface BillingService {
 
     List<BillingDTO> getAllInvoices();
 
+    List<BillingDTO> getInvoicesByMonth(String month);
+    List<BillingDTO> getInvoicesForCurrentMonth();  
+
+   
 }

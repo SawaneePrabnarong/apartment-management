@@ -187,4 +187,22 @@ public class BillingServiceImpl implements BillingService {
         return billings.stream().map(BillingDTO::new).collect(Collectors.toList());
     }
 
+ 
+
+    @Override
+    public List<BillingDTO> getInvoicesByMonth(String month) {
+        List<Billing> billings = billingRepository.findByMonth(month);
+
+        return billings.stream()
+                .map(BillingDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    // ✅ ดึงข้อมูลเฉพาะเดือนปัจจุบัน
+    @Override
+    public List<BillingDTO> getInvoicesForCurrentMonth() {
+        String currentMonth = YearMonth.now().toString(); // 🔹 ดึงเดือนปัจจุบัน "YYYY-MM"
+        return getInvoicesByMonth(currentMonth);
+    }
+
 }

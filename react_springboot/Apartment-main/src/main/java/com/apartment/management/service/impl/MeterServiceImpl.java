@@ -55,19 +55,6 @@ public class MeterServiceImpl implements MeterService {
         }
     }
 
-    // @Override
-    // public void saveElectricMeter(Long roomId, Double meterValue, LocalDate recordDate) throws Exception {
-    //     Room room = roomRepository.findById(roomId)
-    //             .orElseThrow(() -> new Exception("Room not found with id: " + roomId));
-
-    //     ElectricMeter electricMeter = new ElectricMeter();
-    //     electricMeter.setRoom(room);
-    //     electricMeter.setMeterValue(meterValue);
-    //     electricMeter.setRecordDate(recordDate);
-
-    //     electricMeterRepository.save(electricMeter);
-    // }
-
 
     @Override
     public void saveElectricMeter(Long roomId, Double meterValue, LocalDate recordDate) throws Exception {
@@ -125,18 +112,4 @@ public class MeterServiceImpl implements MeterService {
         return electricMeterRepository.findByRecordDateBetween(start, end);
     }
 
-//    @Override
-//    public List<?> getMeterRecordsByRoomNumber(String roomNumber) throws Exception {
-//        Room room = roomRepository.findByRoomNumber(roomNumber)
-//                .orElseThrow(() -> new Exception("Room not found with room number: " + roomNumber));
-//        List<WaterMeter> waterMeters = waterMeterRepository.findByRoom(room);
-//        List<ElectricMeter> electricMeters = electricMeterRepository.findByRoom(room);
-//
-//        // รวมข้อมูลทั้งสอง
-//        List<Object> records = new ArrayList<>();
-//        records.addAll(waterMeters);
-//        records.addAll(electricMeters);
-//
-//        return records;
-//    }
 }
